@@ -3,5 +3,6 @@ Web application to show geographical objects (nodes) with status and info proper
 
 #Hi.
 This application is a demostration of my skills, and the capabilities of the leaflet + osm applications together. This is just a demo, many features are hidden and undeveloped yet.
+Check out the index.html for the demo!
 
 Feel free to ask!
