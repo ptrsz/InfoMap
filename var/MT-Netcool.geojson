@@ -1,0 +1,172 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+				"color":"red",
+                "coordinates": [
+					22.921136,
+					48.651395
+                ]
+            },
+            "properties": {
+                "name": "New Seasons - Raleigh Hills",
+                "address": "7300 SW Beaverton-Hillsdale Highway",
+                "website": "http://www.newseasonsmarket.com",
+                "gluten free": "yes",
+                "open1": "Monday - Sunday, 8am - 10pm"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "MTPoint",
+				"color":"red",
+                "coordinates": [
+                    15.986304,
+					45.943426
+                ]
+            },
+            "properties": {
+                "name": "New Seasons - Sellwood",
+                "address": "1214 SE Tacoma Street",
+                "website": "http://www.newseasonsmarket.com",
+                "gluten free": "yes",
+                "open1": "Monday - Sunday, 8am - 10pm"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "MTIcon",
+				"option": {
+					"url": "img/baseball-marker.png"
+				},
+                "coordinates": [
+                    17.986304,
+					46.943426
+                ]
+            },
+            "properties": {
+                "name": "MTIcon",
+                "address": "1214 SE Tacoma Street",
+                "website": "http://www.newseasonsmarket.com",
+                "gluten free": "yes",
+                "open1": "Monday - Sunday, 8am - 10pm"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "MTCell",
+				"option":{
+					"radius": 50000,"color": "orange","start": 0,	"stop" : 200
+				},
+                "coordinates": [
+                    18.986304,
+					46.943426
+                ]
+            },
+            "properties": {
+                "name": "MTCell",
+                "address": "1214 SE Tacoma Street",
+                "website": "http://www.newseasonsmarket.com",
+                "gluten free": "yes",
+                "open1": "Monday - Sunday, 8am - 10pm"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "MTMarker",
+				"option":{
+					"icon": "phone", "markerColor": "orange", "iconColor":"black"
+				},
+                "coordinates": [
+                    16.986304,
+					46.943426
+                ]
+            },
+            "properties": {
+                "name": "MTMarker",
+                "address": "1214 SE Tacoma Street",
+                "website": "http://www.newseasonsmarket.com",
+                "gluten free": "yes",
+                "open1": "Monday - Sunday, 8am - 10pm"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "ncVoice",
+                "coordinates": [
+                    16.986304,
+					47.943426
+                ]
+            },
+			"netcool": {
+				"Severity" : "Critical",
+				"ServerName" : "IPC",
+				"ServerSerial": 1234567
+			},
+            "properties": {
+                "name": "ncVoice",
+                "address": "1214 SE Tacoma Street",
+                "website": "http://www.newseasonsmarket.com",
+                "gluten free": "yes",
+                "open1": "Monday - Sunday, 8am - 10pm"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "ncInternet",
+                "coordinates": [
+                    15.986304,
+					47.943426
+                ]
+            },
+			"netcool": {
+				"Severity" : "Minor",
+				"ServerName" : "IPC",
+				"ServerSerial": 1234567
+			},
+            "properties": {
+                "name": "ncInternet",
+                "address": "1214 SE Tacoma Street",
+                "website": "http://www.newseasonsmarket.com",
+                "gluten free": "yes",
+                "open1": "Monday - Sunday, 8am - 10pm"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "ncCell",
+				"option":{
+					"radius": 50000,"color": "orange","start": 0,	"stop" : 200
+				},
+                "coordinates": [
+                    20.986304,
+					46.943426
+                ]
+            },
+			"netcool": {
+				"Severity" : "Normal",
+				"ServerName" : "IPC",
+				"ServerSerial": 1234567
+			},
+            "properties": {
+                "name": "ncCell",
+                "address": "1214 SE Tacoma Street",
+                "website": "http://www.newseasonsmarket.com",
+                "gluten free": "yes",
+                "open1": "Monday - Sunday, 8am - 10pm"
+            }
+        }
+		
+		
+    ]
+}

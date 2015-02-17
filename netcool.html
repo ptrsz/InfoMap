@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=1024, user-scalable=no">
+    <style>
+      html { height: 100% }
+      body { height: 100%; margin: 0; padding: 0;}
+      #map{ height: 100% }
+    </style>
+  <link href="lib/font-awesome-4.3.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="lib/leaflet.awesome-markers.css">
+
+  <link rel="stylesheet" href="lib/leaflet-0.7.3/leaflet.css" />
+<!--[if lte IE 8]>
+    <link rel="stylesheet" href="lib/leaflet-0.7.3/leaflet.ie.css" />
+<![endif]-->
+
+<script type="text/javascript" src="lib/leaflet-0.7.3/leaflet-src-MT.js"></script>
+<script type="text/javascript" src="lib/leaflet-ajax-master/dist/leaflet.ajax.js"></script>
+<script type="text/javascript" src="lib/leaflet-tilelayer-geojson/TileLayer.GeoJSON.js"></script>
+<script type="text/javascript" src="lib/leaflet-semicircle-master/Semicircle.js"></script>
+<script type="text/javascript" src="lib/leaflet.awesome-markers.js"></script>
+
+
+<!--Google maps integration-->
+<script src="http://maps.google.com/maps/api/js?v=3.2&sensor=false"></script>
+<script src="http://matchingnotes.com/javascripts/leaflet-google.js"></script>
+
+   
+    <title>InfoPult GIS</title>
+    </head>
+    <body>
+    <div id="map" style="background-color:black;"></div>
+      <script type="text/javascript">
+	  
+	  var m= L.map('map').setView([47.182, 19.501], 8);  
+
+	  var mapQuestAttr = 'Tiles Courtesy of <a href="http://www.mapquest.com/">MapQuest</a> &mdash; ';
+var osmDataAttr = 'Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+var mopt = {
+    url: 'http://otile{s}.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.jpeg',
+    options: {attribution:mapQuestAttr + osmDataAttr, subdomains:'1234'}
+  };
+
+var osm = L.tileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{attribution:osmDataAttr});
+var bwosm = L.tileLayer("http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png",{attribution:osmDataAttr});
+var huosm = L.tileLayer("http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png",{attribution:osmDataAttr});
+var Roadsosm = L.tileLayer('http://openmapsurfer.uni-hd.de/tiles/roads/x={x}&y={y}&z={z}',{attribution:osmDataAttr});
+var MTosm = L.tileLayer("http://10.5.79.167/osm/{z}/{x}/{y}.png",{attribution:osmDataAttr});
+var stamen = L.tileLayer('http://{s}.tile.stamen.com/toner/{z}/{x}/{y}.png', {attribution: 'Add some attributes here!'});
+var bwMapnik = L.tileLayer('http://{s}.www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png');
+var Otthon = L.tileLayer('http://tiles1.otthonterkep.hu/otthonterkep/{z}/{x}/{y}.png');
+var googleLayer = new L.Google('ROADMAP');
+
+var myStyle = {
+    "color": "#858585",
+	"fillColor": "#5D5E5D",
+    "weight": 1,
+    "opacity": 1,
+	"fillOpacity": 1
+};
+// var jsonHuMegye = new L.GeoJSON.AJAX("var/hu_megye.geojson",{style: myStyle});
+var jsonHuMegye = new L.GeoJSON.AJAX("var/hu-all.geojson",{style: myStyle});
+
+var mq=L.tileLayer(mopt.url,mopt.options);
+var mJson = new L.GeoJSON.AJAX("var/hu_01.geojson",{onEachFeature:popUp,style: style});
+
+// mq.addTo(m);
+jsonHuMegye.addTo(m);
+
+var baseMaps = {
+    "Map Quest": mq,
+    "Open Street Map":osm,
+    "B/W Osm":bwosm,
+	"Roads OSM": Roadsosm,
+	"MT OSM": MTosm,
+	"JSON" : mJson,
+	"Stamen": stamen,
+	"B/W Mapnik" :bwMapnik,
+	"Otthon" : Otthon,
+    "Megyék":jsonHuMegye,
+    "GoogleMaps":googleLayer
+//	"OSM France" : OSMfr
+};
+
+
+
+function getColor(d) {
+    return 	d > 20 ? '#FFFFFF' :
+			d > 14 ? '#800026' :
+           d > 11  ? '#BD0026' :
+           d > 8  ? '#E31A1C' :
+           d > 5  ? '#FC4E2A' :
+           d > 2   ? '#FD8D3C' :
+                     '#FFEDA0';
+}
+
+function getColorKer(d) {
+    return d > 14 ? '#800026' :
+           d > 11  ? '#BD0026' :
+           d > 8  ? '#E31A1C' :
+           d > 5  ? '#FC4E2A' :
+           d > 2   ? '#FD8D3C' :
+                     '#FFEDA0';
+}
+
+
+function style(feature) {
+    return {
+        fillColor: getColor(feature.properties.megyekod),
+        weight: 2,
+        opacity: 1,
+        color: 'white',
+        dashArray: '3',
+        fillOpacity: 0.7
+    };
+}
+
+function styleKer(feature) {
+    return {
+        fillColor: getColor(feature.properties.IDB),
+        weight: 2,
+        opacity: 1,
+        color: 'white',
+        dashArray: '3',
+        fillOpacity: 0.7
+    };
+}
+
+function highlightFeature(e) {
+    var layer = e.target;
+
+    layer.setStyle({
+        weight: 5,
+        color: '#666',
+        dashArray: '',
+        fillOpacity: 0.7
+    });
+
+    if (!L.Browser.ie && !L.Browser.opera) {
+        layer.bringToFront();
+    }
+}
+
+function resetHighlight(e) {
+    geojson.resetStyle(e.target);
+}
+
+
+
+function popUp(f,l){
+    var out = [];
+    if (f.properties){
+        for(key in f.properties){
+            out.push(key+": "+f.properties[key]);
+        }
+        l.bindPopup(out.join("<br />"));
+    }
+}
+
+function refreshLayer() {
+	m.removeLayer(jsonHuMegye);
+	jsonHuMegye = new L.GeoJSON.AJAX("var/hu_megye.geojson",{caching: false, async: true, onEachFeature:popUp,style: style}); 
+	m.addLayer(jsonHuMegye);
+	timeOut=setTimeout("refreshLayer()",10000);
+}
+
+
+function reloadLayer() {
+	jsonNetcool.refresh("http://infopult-3.telekom.intra/snoc/getdata.php?layer=CellMOP&view=nodes");
+	// jsonHuMegye.clearLayers().addData("var/hu_megye.geojson"); 
+	// jsonHuMegye._layers;
+	// console.log("aa");
+	timeOut=setTimeout("reloadLayer()",10000);
+}
+
+
+
+// var jsonHuMegye = new L.GeoJSON.AJAX("var/hu_megye.geojson",{onEachFeature:popUp});
+var jsonHuKisterseg = new L.GeoJSON.AJAX("var/hu_kisterseg.geojson",{onEachFeature:popUp,style: style});
+var jsonBpKerulet = new L.GeoJSON.AJAX("var/bp_kerulet.geojson",{onEachFeature:popUp,style: styleKer});
+var jsonHungary = new L.GeoJSON.AJAX("var/hungary-overpass.geojson",{onEachFeature:popUp});
+// var jsonpTest = L.GeoJSON.AJAX("http://assets.otthonterkep.hu/5de8f6c7/data/hu_kisterseg.geojson",{onEachFeature:popUp,dataType:"jsonp"});
+
+// JSONP hívásnál: https://www.linkedin.com/groups/Ajax-Jquery-cross-domain-issue-100943.S.5912158543305269249
+
+// var jsonNetcool = new L.GeoJSON.AJAX("http://infopult-3.telekom.intra/snoc/geojson.php?layer=fromMOP&view=nodes",{onEachFeature:popUp,dataType:"jsonp"});
+// var jsonNetcool = new L.GeoJSON.AJAX("http://infopult-3.telekom.intra/snoc/getdata.php?layer=fromMOP&view=nodes",{onEachFeature:popUp});
+var jsonNetcool = new L.GeoJSON.AJAX("http://infopult-3.telekom.intra/snoc/getdata.php?layer=CellMOP&view=nodes",{onEachFeature:popUp});
+var jsonMop = new L.GeoJSON.AJAX("http://infopult-3.telekom.intra/snoc/getdata.php?layer=fromMOP&view=nodes",{onEachFeature:popUp});
+// var jsonNetcool = new L.GeoJSON.AJAX("http://infopult-3.telekom.intra/snoc/getdata.php?layer=PSTN&view=nodes",{onEachFeature:popUp});
+// var jsonNetcool = new L.GeoJSON.AJAX("http://infopult-3.telekom.intra/snoc/geojson.php",{onEachFeature:popUp});
+// var jsonNetcool = new L.GeoJSON.AJAX("var/live.geojson",{onEachFeature:popUp});
+
+var jsonTest = new L.GeoJSON.AJAX("cupcakes.json",{onEachFeature:popUp});
+
+
+// jsonHuMegye.addTo(m);
+jsonNetcool.addTo(m);
+var overlays={
+ "Netcool": jsonNetcool,
+ "MOP": jsonMop,
+ "Teszt": jsonTest,
+ "Magyarország": jsonHungary,
+ "Kistérség":jsonHuKisterseg,
+ "Bp kerület":jsonBpKerulet,
+// "jsonp":jsonpTest
+}
+
+// Move bounds to Top
+var southWest = new L.LatLng(45.943426, 15.986304),
+southEast = new L.LatLng(45.943426,22.921136),
+northEast = new L.LatLng(48.651395, 22.921136),
+northWest = new L.LatLng(48.651395,15.986304),
+bounds = new L.LatLngBounds(southWest, northEast);
+m.fitBounds(bounds);
+m.panBy(new L.Point(0,m.latLngToContainerPoint(northEast).y), {animate: false});
+
+// L.marker(northWest,{} ).addTo(m);
+// L.marker(southEast).addTo(m);
+var marPos = new L.LatLng(47.023,19.324);
+L.marker(marPos, {icon: L.AwesomeMarkers.icon({icon: 'phone', prefix: 'fa', markerColor: 'red', iconColor: 'black'}) }).addTo(m);
+
+
+var lc=L.control.layers(baseMaps,overlays,{position: 'topleft'});
+lc.addTo(m);
+reloadLayer();
+
+</script>
+       
+        
+</body>
+</html>

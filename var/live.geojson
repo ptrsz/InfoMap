@@ -1,0 +1,74 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+		{
+            "type": "Feature",
+            "geometry": {
+                "type": "ncPoint",
+                "coordinates": [
+                    17.793170928955,
+                    46.359046936035
+                ],
+                "option": "Minor.png@AXE KAPV"
+            },
+            "netcool": {
+                "ServerName": "IPCII",
+                "ServerSerial": 1234567,
+                "Severity": "Minor"
+            },
+            "properties": {
+                "DisplayName": null,
+                "Layer": "PSTN",
+                "name": "AXE KAPV",
+                "status": "Minor"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "ncInternet",
+                "coordinates": [
+                    15.986304,
+					47.943426
+                ]
+            },
+			"netcool": {
+				"Severity" : "Minor",
+				"ServerName" : "IPC",
+				"ServerSerial": 1234567
+			},
+            "properties": {
+                "name": "ncInternet",
+                "address": "1214 SE Tacoma Street",
+                "website": "http://www.newseasonsmarket.com",
+                "gluten free": "yes",
+                "open1": "Monday - Sunday, 8am - 10pm"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "ncCell",
+				"option":{
+					"radius": 50000,"color": "orange","start": 0,	"stop" : 200
+				},
+                "coordinates": [
+                    20.986304,
+					46.943426
+                ]
+            },
+			"netcool": {
+				"Severity" : "Normal",
+				"ServerName" : "IPC",
+				"ServerSerial": 1234567
+			},
+            "properties": {
+                "name": "ncCell",
+                "address": "1214 SE Tacoma Street",
+                "website": "http://www.newseasonsmarket.com",
+                "gluten free": "yes",
+                "open1": "Monday - Sunday, 8am - 10pm"
+            }
+        }
+    ]
+}
